@@ -12,7 +12,7 @@ Nmap::Program.scan do |nmap|
 	nmap.xml = 'd:\scan.xml'
 	nmap.verbose = true
 	nmap.ports = [22,80,3389,8080]
-	nmap.targets = "139.139.139.139"
+	nmap.targets = "127.0.0.1"
 end
 
 

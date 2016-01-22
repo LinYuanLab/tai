@@ -21,7 +21,15 @@ OptionParser.new do |parser|
 		options[:target] = target
 	end
 
-	parser.on( "-o", "--output FILE", "输出到文件") do |output|
+	parser.on( "-i", "--import FILE", "导入扫描任务") do |import|
+		options[:import] = import
+	end
+	
+	parser.on( "-e", "--export FILE", "导出扫描任务") do |export|
+		options[:export] = export
+	end	
+	
+	parser.on( "-o", "--output FILE", "将扫描结果输出到文件") do |output|
 		options[:output] = output
 	end
 

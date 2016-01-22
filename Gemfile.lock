@@ -1,0 +1,15 @@
+GEM
+  remote: https://ruby.taobao.org/
+  specs:
+    eventmachine (1.0.9.1)
+    icmp4em (1.0.0)
+      eventmachine (>= 1.0.0)
+
+PLATFORMS
+  x64-mingw32
+
+DEPENDENCIES
+  icmp4em
+
+BUNDLED WITH
+   1.11.2

@@ -4,7 +4,7 @@
 $LOAD_PATH << File.dirname(__FILE__)
 
 require 'config'
-
+require 'alive'
 
 #扫描系统初始化
 def init()
@@ -13,15 +13,9 @@ end
 
 #处理脚本参数
 def args_parse(options)
-	options.each do | k,v|
+	options.each do | k,v |
 		puts "#{k}=>#{v}"
 	end
-end
-
-#调用nmap扫描主机是否存活
-def nmap_alive_detect()
-	
-	
 end
 
 
