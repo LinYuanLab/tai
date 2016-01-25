@@ -5,6 +5,7 @@ $LOAD_PATH << File.dirname(__FILE__)
 
 require 'config'
 require 'alive'
+require 'portscan'
 
 #扫描系统初始化
 def init()
@@ -13,11 +14,17 @@ end
 
 #处理脚本参数
 def args_parse(options)
-	options.each do | k,v |
-		puts "#{k}=>#{v}"
+	if options[:target]
+		puts whole_scan( options[:target] )
 	end
+	#options.each do | k,v |
+	#	puts "#{k}=>#{v}"
+	#end
 end
 
+def parse_ip(item)
+  puts item
+end
 
 
 #检查版本和规则更新
