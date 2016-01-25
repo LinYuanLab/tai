@@ -6,6 +6,7 @@ GEM
       eventmachine (>= 1.0.0)
 
 PLATFORMS
+  ruby
   x64-mingw32
 
 DEPENDENCIES

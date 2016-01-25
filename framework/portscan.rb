@@ -31,7 +31,7 @@ def whole_scan( host )
 				thread_port = port
 				port += 1
 				mutex.unlock
-				is_open('127.0.0.1', thread_port,3 )
+				is_open( host , thread_port, 1 )
 				#puts "线程[#{n}]\t端口[#{thread_port}]"
 			end
 		end
@@ -42,4 +42,7 @@ def whole_scan( host )
 	puts end_time
 end
 
+def get_info()
+
+end
 
