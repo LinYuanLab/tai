@@ -39,3 +39,50 @@ scripts				扫描脚本目录
 写到端口信息探测和指纹识别模块，不知道该怎么写了，很难啊。
 
 
+##项目笔记
+模块
+1.界面
+
+2.扫描进程调度模块
+
+3.分布式服务器管理模块（C/S模式）
+
+4.漏洞扫描模块
+
+5.爬虫模块
+
+6.数据库模块
+
+任务的生命周期
+
+创建->运行<->挂起->结束
+        |
+      结束
+
+C create
+
+R run
+
+P pause
+
+D destroy
+
+任务在数据库中的形态
+
+task_id
+
+task_name
+
+task_attribute
+
+task_type
+
+task_target
+
+task_payload
+
+task_status
+
+task_
+
+分布式扫描：
