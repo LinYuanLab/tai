@@ -15,7 +15,8 @@ end
 #处理脚本参数
 def args_parse(options)
 	if options[:target]
-		puts whole_scan( options[:target] )
+		#puts whole_scan( options[:target] )
+		get_info( options[:target], 9999 )
 	end
 	#options.each do | k,v |
 	#	puts "#{k}=>#{v}"

@@ -4,7 +4,7 @@
 #Module:portscan
 
 require 'thread'
-
+require 'socket'
 
 def is_open(host, port, timeout)
 	begin
@@ -42,7 +42,16 @@ def whole_scan( host )
 	puts end_time
 end
 
-def get_info()
-
+def get_info( host, port )
+	s = TCPSocket.new host, port
+	while line = s.gets
+		puts line
+	end
 end
+
+
+
+
+
+
 
