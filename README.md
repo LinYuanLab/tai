@@ -1,6 +1,7 @@
 #test
 
 ###目录说明:
+
 framework			程序运行框架
 
 framework/database	程序数据库目录
@@ -43,6 +44,7 @@ scripts				扫描脚本目录
 暂时什么也没写，在忙别的。晚上有空先测试一下socket通信。
 
 ###项目笔记
+
 模块
 
 1.界面
