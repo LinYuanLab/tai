@@ -49,6 +49,17 @@ scripts				扫描脚本目录
 
 恩，这样应该没问题。
 
+##一些参考
+nmap源码分析-服务与版本扫描
+http://qiusuoge.com/11442.html
+
+wyportmap目标端口和指纹识别组件
+http://www.hx99.net/Article/Tools/201507/36861.html
+
+操作系统指纹识别概述
+http://www.freebuf.com/articles/system/30037.html
+
+
 ###项目笔记
 
 模块
