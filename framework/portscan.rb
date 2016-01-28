@@ -1,6 +1,6 @@
 #!/bin/ruby
 #-*- coding:utf-8 -*-
-#2016-1-22
+#2016-01-22
 #Module:portscan
 
 require 'thread'
@@ -31,7 +31,9 @@ def whole_scan( host )
 				thread_port = port
 				port += 1
 				mutex.unlock
-				is_open( host , thread_port, 1 )
+				if is_open( host , thread_port, 1 )
+					puts finger_print( host, thread_port )
+				end
 				#puts "线程[#{n}]\t端口[#{thread_port}]"
 			end
 		end
@@ -44,10 +46,46 @@ end
 
 def get_info( host, port )
 	s = TCPSocket.new host, port
-	while line = s.gets
+	if line = s.gets
 		puts line
 	end
 end
+
+def finger_print( host, port )
+	return ret_service( port )
+end
+
+#根据端口号判断服务(临时)
+def ret_service( port )
+	case port
+		when 21
+			return "ftp"
+		when 22
+			return "ssh"
+		when 23
+			return "telnet"
+		when 25
+			return "pop"
+		when 80
+			return "http"
+		when 110
+			return "smtp"
+		when 135
+			return "rpc"
+		when "445"
+			return "rpc"
+		when 1900
+			return "upnp"
+		when 3306
+			return "mysql"
+		else
+			return "unknown"
+	end
+end
+
+
+
+
 
 
 
