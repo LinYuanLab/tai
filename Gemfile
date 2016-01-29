@@ -5,3 +5,4 @@ source 'https://ruby.taobao.org'
  gem "eventmachine"
  #http://www.rubydoc.info/gems/eventmachine/1.0.9.1
  #gem 'ipaddr'
+ gem 'webrick'
