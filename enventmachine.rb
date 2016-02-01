@@ -1,4 +1,4 @@
- require 'eventmachine'
+require 'eventmachine'
 
 module EchoServer
    def post_init

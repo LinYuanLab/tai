@@ -1,5 +1,6 @@
 require 'socket'
 
+puts Socket.getservbyport(80)
 s = TCPSocket.new 'localhost', 9999
 
 loop do
