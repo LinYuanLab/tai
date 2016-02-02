@@ -6,7 +6,7 @@ $WORK_PATH		= File.dirname(__FILE__) 				#程序运行目录
 $LOGS_PATH		= "#{File.dirname(__FILE__)}/logs/"		#日志文件目录
 $MODULE_PATH	= "#{File.dirname(__FILE__)}/modules/"	#模块文件目录
 $SCRIPT_PATH	= "#{File.dirname(__FILE__)}/scripts/"	#脚本文件目录
-$DATABASE_PATH	= "#{File.dirname(__FILE__)}/database/"	#数据文件目录
+$DATABASE_PATH	= "#{File.dirname(__FILE__)}/database/"	#数据库文件目录
 
 #载入工作区间
 $LOAD_PATH << $WORK_PATH
