@@ -13,53 +13,52 @@ def init()
 	puts "Start"
 end
 
-#处理脚本参数
 def args_parse(options)
-	#指定扫描脚本
-	if script = options[:script]
-		puts "script: #{script}"
-	end
-	#指定扫描规则
-	if rule = options[:rule]
-		puts "rule: #{rule}"
-	end
-	#指定扫描目标
-	if target = options[:target]
-		target = parse_target( target )
-		#whole_scan( target )
-		#get_info( target, 80 )
-	end
-	#导入扫描任务
-	if import = options[:import]
-		puts "import:#{import}"
-	end
-	#导出扫描任务
-	if export = options[:export]
-		puts "export #{export}"
-	end
-	#将扫描结果输出到文件
 	if output = options[:output]
-		puts "output: #{output}"
+		puts "Output To File: #{output}"
 	end
-	#显示对象
-	if list = options[:list]
-		puts "list: #{list}"
+	if import = options[:import]
+		puts "Launch Task:#{import}"
+	elsif export = options[:export]
+		puts "Export Task:#{export}" #导出扫描任务
+	elsif list = options[:list]
+		puts "list: #{list}"	#显示对象
+	elsif options[:update]
+		puts "updating..."	#更新规则库
+	elsif options[:init]
+		puts "initialize"	#初始化本地数据库
+	else
+		if target = options[:target]
+			target = parse_target( target )
+			if rule = options[:rule]
+				puts "Load Rule: #{rule}"
+			else
+				if script = options[:script]
+					puts "Use Script: #{script}"
+				else
+					puts "Load Default Rule"
+				end
+			end
+		else
+			puts "Target Cannot Be Empty!\n#{Time.now.strftime('%Y/%m/%d %H:%M:%S')}"
+		end
 	end
-	#更新规则库
-	if options[:update]
-		puts "updating..."
-	end
-	#初始化本地数据库
-	if options[:init]
-		puts "initialize"
-	end
-	#options.each do | k,v |
-	#	puts "#{k}=>#{v}"
-	#end
 end
 
 def parse_target( item )
-	puts item
+	reg_domain = /[\w\d\-_\.]+[a-z]{2,4}/n
+	reg_ipaddr = /[[0-9]{1,3}\.]{3}\.[0-9]{1,3}/n
+	reg_iprang = /[[0-9]{1,3}\.]{3}\.[0-9]{1,3}\/[0-9]{1,2}/n
+	if item =~ reg_domain
+		puts "Get Domain: #{item}"
+	elsif item =~ reg_ipaddr
+		puts "Get IPaddr: #{item}"
+	elsif item =~ reg_iprang
+		puts "Get IPrang: #{item}"
+	else
+		puts "Else"
+	end
+	
 	return item
 end
 
