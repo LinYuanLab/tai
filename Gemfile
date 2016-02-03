@@ -6,3 +6,4 @@ source 'https://ruby.taobao.org'
  #gem 'ipaddress', '~> 0.8.2' #to parse ip address
  gem 'webrick', '~> 1.3', '>= 1.3.1' #to build http service
  gem 'pcaprub', '~> 0.12.1' #ruby pcap
+ gem 'packetfu', '~> 1.1', '>= 1.1.11' #read, parse and write network packets
