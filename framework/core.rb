@@ -10,7 +10,7 @@ require 'portscan'
 
 #扫描系统初始化
 def init()
-	puts "Start"
+	puts "Init"
 end
 
 def args_parse(options)
@@ -39,6 +39,9 @@ def args_parse(options)
 					puts "Load Default Rule"
 				end
 			end
+			
+			#处理完参数，将参数传入扫描进程启动扫描
+			
 		else
 			puts "Target Cannot Be Empty!\n#{Time.now.strftime('%Y/%m/%d %H:%M:%S')}"
 		end
@@ -50,11 +53,11 @@ def parse_target( item )
 	reg_ipaddr = /[[0-9]{1,3}\.]{3}\.[0-9]{1,3}/n
 	reg_iprang = /[[0-9]{1,3}\.]{3}\.[0-9]{1,3}\/[0-9]{1,2}/n
 	if item =~ reg_domain
-		puts "Get Domain: #{item}"
+		puts "DOMAIN: #{item}"
 	elsif item =~ reg_ipaddr
-		puts "Get IPaddr: #{item}"
+		puts "IPADDR: #{item}"
 	elsif item =~ reg_iprang
-		puts "Get IPrang: #{item}"
+		puts "IPRANGE: #{item}"
 	else
 		puts "Else"
 	end
