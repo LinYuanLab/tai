@@ -1,6 +1,3 @@
-#!/bin/ruby
-
-#-*- coding:utf-8 -*-
 
 $LOAD_PATH << File.dirname(__FILE__)
 
@@ -51,14 +48,15 @@ def args_parse(options)
 					create_task( 1, "script_name", targets )
 				else
 					#不然的话就启动默认规则，从这里进行扫描
-					puts "Load Default Rule"
+					puts "#{time} Load Default Rule"
+					#puts Iconv.new('gbk', 'utf-8').iconv("加载" )
 					#默认的规则是启用全部的脚本
 					create_task( 0, 0, targets )
 				end
 			end
 		else
 			#没有指定扫描目标，程序退出
-			puts "Target Cannot Be Empty!\n#{Time.now.strftime('%Y/%m/%d %H:%M:%S')}"
+			puts "Target Cannot Be Empty!\n#{time}"
 		end
 	end
 end
@@ -110,7 +108,7 @@ targets:目标，数组类型
 =end
 	case type
 		when 0
-			puts "default task"
+			puts "#{time} Default Task"
 			
 		when 1
 			puts "script task"
@@ -125,6 +123,20 @@ targets:目标，数组类型
 		puts target
 	end
 end
+
+def time(*item)
+	case item
+		when 0
+			return Time.now.strftime('%Y-%m-%d %H:%M:%S')
+		when 1
+			return Time.now.strftime('%Y/%m/%d %H:%M:%S')
+		when 2
+			return Time.now.strftime('%Y%m%d %H:%M:%S')
+		else
+			return Time.now.strftime('%H:%M:%S')
+		end
+end
+
 
 #检查版本和规则更新
 def version(obj)

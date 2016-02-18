@@ -1,4 +1,4 @@
-#!/bin/ruby
+﻿#!/bin/ruby
 #-*- coding:utf-8 -*-
 
 #定义程序全局配置
