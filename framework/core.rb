@@ -1,8 +1,10 @@
 
 $LOAD_PATH << File.dirname(__FILE__)
 
+require 'log'
 require 'config'
 require 'alive'
+require 'tasks'
 require 'portscan'
 
 #扫描系统初始化
@@ -61,69 +63,7 @@ def args_parse(options)
 	end
 end
 
-#为了推进后面的程序流程临时编写的替代函数
-def parse_target( item )
-	targets = Array.new
-	targets.push( item )
-end
-
-#这个才是真正的目标处理函数
-#这个函数仅仅把目标处理成数组
-#0.如果是单个ip或域名，直接返回成数组
-#1.如果是域名类型，类似a.com和a.com,b.com或a.com b.com,自动分割组建数组
-#2.如果是网络地址类型，切换成单个ip后组成数组，如192.168.0.0/24，返回的数组内容为192.168.0.1-192.168.0.255
-def parse_target_( item )
-	reg_domain = /[\w\d\-_\.]+[a-z]{2,4}/n
-	reg_ipaddr = /[[0-9]{1,3}\.]{3}\.[0-9]{1,3}/n
-	reg_iprang = /[[0-9]{1,3}\.]{3}\.[0-9]{1,3}\/[0-9]{1,2}/n
-	if item =~ reg_domain
-		puts "DOMAIN: #{item}"
-	elsif item =~ reg_ipaddr
-		puts "IPADDR: #{item}"
-	elsif item =~ reg_iprang
-		puts "IPRANGE: #{item}"
-	else
-		puts "Else"
-	end
-	
-	return item
-end
-
-#创建扫描任务
-def create_task(type, item, targets)
-=begin
-该函数参数为：
-type:任务类型
-	0:默认类型
-	1:single scripts
-	2:define rule
-	3:launch task
-item:参数
-	type	item		targets
-	0		0			targets
-	1		script_name	targets
-	2		rule_name	targets
-	3		task_path	null
-targets:目标，数组类型
-=end
-	case type
-		when 0
-			puts "#{time} Default Task"
-			
-		when 1
-			puts "script task"
-		when 2
-			puts "rule task"
-		when 3
-			puts "launch task"
-		else
-			puts "unknow task"
-		end
-	targets.each do | target |
-		puts target
-	end
-end
-
+#返回当前时间
 def time(*item)
 	case item
 		when 0
@@ -136,7 +76,6 @@ def time(*item)
 			return Time.now.strftime('%H:%M:%S')
 		end
 end
-
 
 #检查版本和规则更新
 def version(obj)
