@@ -1,4 +1,4 @@
-=begin
+﻿=begin
 puts "\033[1mFront\033[0m\n"  
 puts "   \033[30mBlack (30)\033[0m\n"  
 puts "   \033[31mRed (31)\033[0m\n"  

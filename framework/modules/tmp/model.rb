@@ -1,30 +1,29 @@
-﻿# -*- coding: utf-8 -*-
+# -*- coding: utf-8 -*-
 
 $LOAD_PATH << File.dirname(__FILE__)
 
-require 'config'
 require 'sqlite3'
 
 module Model
 
-	$scannerdb = $DB_PATH+"scannerdb.sqlite"
-	$db = SQLite3::Database.new($scannerdb)
+	$model_db = $DB_PATH+"model.sqlite"
+	$db = SQLite3::Database.new($model_db)
 
 	def Model.connect()
-		return SQLite3::Database.new($scannerdb)
+		return SQLite3::Database.new($model_db)
 	end
 
 	def Model.init_db()
-		#扫描器数据库初始化
+		#模型数据库初始化
 		#建立数据库文件
-		if File::exists?( $scannerdb )
-			File.rename( $scannerdb, $DB_PATH+"#{Time.now().strftime('%Y%m%d%H%M%s')}#{rand(10)}.sqlite.bak" )
+		if File::exists?( $model_db )
+			File.rename( $model_db, $DB_PATH+"#{Time.now().strftime('%Y%m%d%H%M%s')}#{rand(10)}.sqlite.bak" )
 		else
-			File.new( $scannerdb )
+			File.new( $model_db )
 			File.chmod( 0755 )
 		end
 		
-		db = SQLite3::Database.new( $scannerdb )
+		db = SQLite3::Database.new( $model_db )
 		#创建域名数据表
 		#域名数据库说明
 		#id为域名编号

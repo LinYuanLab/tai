@@ -1,30 +1,23 @@
-$LOAD_PATH << File.dirname(__FILE__)
+﻿$LOAD_PATH << File.dirname(__FILE__)
 
-#为了推进后面的程序流程临时编写的替代函数
 def parse_target( item )
 	targets = Array.new
-	targets.push( item )
-end
-
-#这个才是真正的目标处理函数
-#这个函数仅仅把目标处理成数组
-#0.如果是单个ip或域名，直接返回成数组
-#1.如果是域名类型，类似a.com和a.com,b.com或a.com b.com,自动分割组建数组
-#2.如果是网络地址类型，切换成单个ip后组成数组，如192.168.0.0/24，返回的数组内容为192.168.0.1-192.168.0.255
-def parse_target_( item )
-	reg_domain = /[\w\d\-_\.]+[a-z]{2,4}/n
-	reg_ipaddr = /[[0-9]{1,3}\.]{3}\.[0-9]{1,3}/n
-	reg_iprang = /[[0-9]{1,3}\.]{3}\.[0-9]{1,3}\/[0-9]{1,2}/n
-	if item =~ reg_domain
-		puts "DOMAIN: #{item}"
-	elsif item =~ reg_ipaddr
-		puts "IPADDR: #{item}"
-	elsif item =~ reg_iprang
-		puts "IPRANGE: #{item}"
+	if item.include?','
+	#a.com,b.com,x.x.x.x
+		item.split(",").each do |target|
+			
+			targets.push( target )
+		end
+	elsif item.include?'-' and item =~ /[[0-9]{1,3}\.]{3}\.[0-9]{1,3}\-[0-9]{1,3}/n
+	#x.x.x.x-x
+		( item.split("-")[0].split(".")[3].to_i..item.split("-")[1].to_i).each do |i|
+			targets.push( "#{item.split(".")[0]}.#{item.split(".")[1]}.#{item.split(".")[2]}.#{i}" )
+		end
+		targets.push( item )
 	else
-		puts "Else"
+		targets.push( item )
 	end
-	return item
+	return targets
 end
 
 #创建扫描任务
@@ -53,21 +46,21 @@ def create_task(type, item, targets)
 		when 1
 			#单脚本模式
 			#这种模式下通过判断规则中包含的目标数量来创建扫描线程
-			puts "#{time} 使用脚本#{item}扫描#{targets}"
+			puts "#{time} 使用脚本#{item}扫描 #{targets}"
 		when 2
 			#规则模式
 			#这种模式下通过判断规则中包含的脚本数量来处理扫描线程
-			puts "#{time} 使用规则#{item}扫描#{targets}"
+			puts "#{time} 使用规则#{item}扫描 #{targets}"
 			targets.each do | target |
 				rule = parse_rule( item.to_i )
-				puts "#{time} 规则:#{rule['name']}"
-				puts "#{time} 路径:#{rule['file']}"
+				puts "#{time} 当前规则:#{rule['name']}"
+				#puts "#{time} 路径:#{rule['file']}"
 				rule['scripts'].each do |script|
 					#这里稍后加上多线程，每一个线程中实例化一个变量
-					puts "#{time} #{script} -> #{target}"
+					puts "#{time} 加载#{script} 扫描 #{target}"
 					require script
 					poc = Poc.new
-					#puts poc.name
+					#puts Poc.info['id']
 					poc.verify( target )
 				end
 			end

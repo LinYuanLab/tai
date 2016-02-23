@@ -1,10 +1,11 @@
-#test
+﻿#test
 ###目录说明:
 framework			程序运行框架
-framework/database	程序数据库目录
 framework/logs		日志文件目录
-modules				常用模块的封装
-scripts				扫描脚本目录
+framework/rules		扫描规则文件目录
+framework/modules	模块文件目录
+framework/scripts	扫描脚本目录
+framework/database	程序数据库目录
 ####2016-01-21:
 启动项目
 ####2016-01-22
@@ -32,7 +33,7 @@ scripts				扫描脚本目录
 2).端口指纹表
 3).扫描任务表
 4).漏洞数据表
-妈的下班了，不写了回头再说
+下班了，不写了回头再说
 ####2016-02-03
 开始写参数处理这部分，还是比较简单的
 今天设计了一些程序流程图
@@ -55,6 +56,21 @@ scripts				扫描脚本目录
 所以在创建poc的时候也许会考虑为web类型的poc增加一条属性，来表明其为web，同样的也会针对此种类型创建规则
 ####2016-02-23
 今天开始设计数据库
+先创建如下数据表：
+	1.tasks
+	2.creds
+tasks数据库中的列
+	task_id
+	task_rule
+	task_title
+	task_status
+	task_targets
+creds数据库中的列
+	cred_id
+	cred_taskid
+	cred_target
+	cred_services
+
 ##一些参考
 nmap源码分析-服务与版本扫描
 http://qiusuoge.com/11442.html
@@ -78,14 +94,3 @@ C create
 R run
 P pause
 D destroy
-任务在数据库中的形态
-task_id
-task_name
-task_attribute
-task_type
-task_target
-task_payload
-task_status
-task_
-
-分布式扫描：

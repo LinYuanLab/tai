@@ -2,9 +2,9 @@
 $LOAD_PATH << File.dirname(__FILE__)
 
 require 'log'
-require 'config'
 require 'alive'
 require 'tasks'
+require 'config'
 require 'portscan'
 
 #扫描系统初始化
