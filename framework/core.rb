@@ -7,7 +7,7 @@ require 'alive'
 require 'tasks'
 require 'portscan'
 
-#É¨ÃèÏµÍ³³õÊ¼»¯
+#æ‰«æç³»ç»Ÿåˆå§‹åŒ–
 def init()
 	puts "Init"
 end
@@ -18,52 +18,51 @@ def args_parse(options)
 	end
 	if import = options[:import]
 		puts "Launch Task:#{import}"
-		#Ö´ĞĞµ¼ÈëµÄÉ¨ÃèÈÎÎñ
+		#æ‰§è¡Œå¯¼å…¥çš„æ‰«æä»»åŠ¡
 		create_task( 3, "task_path", targets )
-		
+
 	elsif export = options[:export]
-		#µ¼³öÉ¨ÃèÈÎÎñ
-		puts "Export Task:#{export}" 
+		#å¯¼å‡ºæ‰«æä»»åŠ¡
+		puts "Export Task:#{export}"
 	elsif list = options[:list]
-		#ÏÔÊ¾¶ÔÏó
+		#æ˜¾ç¤ºå¯¹è±¡
 		puts "list: #{list}"
 	elsif options[:update]
-		#¸üĞÂ¹æÔò¿â
+		#æ›´æ–°è§„åˆ™åº“
 		puts "updating..."
 	elsif options[:init]
-		#³õÊ¼»¯±¾µØÊı¾İ¿â
+		#åˆå§‹åŒ–æœ¬åœ°æ•°æ®åº“
 		puts "initialize"
 	else
 		if target = options[:target]
-			#ÕâÀïÊ¹ÓÃº¯Êı¶ÔÄ¿±ê½øĞĞ´¦Àí£¬Êä³öÊı×é¸ñÊ½µÄÈÎÎñÄ¿±ê
+			#è¿™é‡Œä½¿ç”¨å‡½æ•°å¯¹ç›®æ ‡è¿›è¡Œå¤„ç†ï¼Œè¾“å‡ºæ•°ç»„æ ¼å¼çš„ä»»åŠ¡ç›®æ ‡
 			targets = parse_target( target )
-			
 			if rule = options[:rule]
-				#Èç¹ûÖ¸¶¨ÁËÌØ¶¨µÄ¹æÔò£¬ÕâÀï½«Ê¹ÓÃÌØ¶¨µÄ½Å±¾½øĞĞÉ¨Ãè
-				puts "Load Rule: #{rule}"
-				#´´½¨ÌØ¶¨¹æÔòÈÎÎñ
+				#å¦‚æœæŒ‡å®šäº†ç‰¹å®šçš„è§„åˆ™ï¼Œè¿™é‡Œå°†ä½¿ç”¨ç‰¹å®šçš„è„šæœ¬è¿›è¡Œæ‰«æ
+				puts "åŠ è½½è§„åˆ™: #{rule}"
+				#åˆ›å»ºç‰¹å®šè§„åˆ™ä»»åŠ¡
 				create_task( 2, "rule_name", targets )
 			else
 				if script = options[:script]
-					#Èç¹ûÖ¸¶¨ÁËµ¥¸ö½Å±¾½øĞĞÅúÁ¿É¨Ãè£¬ÄÇÃ´¾Í´ÓÕâÀïÆô¶¯É¨Ãè
+					#å¦‚æœæŒ‡å®šäº†å•ä¸ªè„šæœ¬è¿›è¡Œæ‰¹é‡æ‰«æï¼Œé‚£ä¹ˆå°±ä»è¿™é‡Œå¯åŠ¨æ‰«æ
 					puts "Use Script: #{script}"
 					create_task( 1, "script_name", targets )
 				else
-					#²»È»µÄ»°¾ÍÆô¶¯Ä¬ÈÏ¹æÔò£¬´ÓÕâÀï½øĞĞÉ¨Ãè
-					puts "#{time} Load Default Rule"
-					#puts Iconv.new('gbk', 'utf-8').iconv("¼ÓÔØ" )
-					#Ä¬ÈÏµÄ¹æÔòÊÇÆôÓÃÈ«²¿µÄ½Å±¾
+					#ä¸ç„¶çš„è¯å°±å¯åŠ¨é»˜è®¤è§„åˆ™ï¼Œä»è¿™é‡Œè¿›è¡Œæ‰«æ
+					puts "#{time} åŠ è½½é»˜è®¤è§„åˆ™"
+					#puts Iconv.new('gbk', 'utf-8').iconv("åŠ è½½" )
+					#é»˜è®¤çš„è§„åˆ™æ˜¯å¯ç”¨å…¨éƒ¨çš„è„šæœ¬
 					create_task( 0, 0, targets )
 				end
 			end
 		else
-			#Ã»ÓĞÖ¸¶¨É¨ÃèÄ¿±ê£¬³ÌĞòÍË³ö
+			#æ²¡æœ‰æŒ‡å®šæ‰«æç›®æ ‡ï¼Œç¨‹åºé€€å‡º
 			puts "Target Cannot Be Empty!\n#{time}"
 		end
 	end
 end
 
-#·µ»Øµ±Ç°Ê±¼ä
+#è¿”å›å½“å‰æ—¶é—´
 def time(*item)
 	case item
 		when 0
@@ -77,7 +76,7 @@ def time(*item)
 		end
 end
 
-#¼ì²é°æ±¾ºÍ¹æÔò¸üĞÂ
+#æ£€æŸ¥ç‰ˆæœ¬å’Œè§„åˆ™æ›´æ–°
 def version(obj)
 	version = Hash.new
 	version["framework"] = "0.0.0"

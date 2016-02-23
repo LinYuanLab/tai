@@ -1,16 +1,16 @@
 $LOAD_PATH << File.dirname(__FILE__)
 
-#ÎªÁËÍÆ½øºóÃæµÄ³ÌĞòÁ÷³ÌÁÙÊ±±àĞ´µÄÌæ´úº¯Êı
+#ä¸ºäº†æ¨è¿›åé¢çš„ç¨‹åºæµç¨‹ä¸´æ—¶ç¼–å†™çš„æ›¿ä»£å‡½æ•°
 def parse_target( item )
 	targets = Array.new
 	targets.push( item )
 end
 
-#Õâ¸ö²ÅÊÇÕæÕıµÄÄ¿±ê´¦Àíº¯Êı
-#Õâ¸öº¯Êı½ö½ö°ÑÄ¿±ê´¦Àí³ÉÊı×é
-#0.Èç¹ûÊÇµ¥¸öip»òÓòÃû£¬Ö±½Ó·µ»Ø³ÉÊı×é
-#1.Èç¹ûÊÇÓòÃûÀàĞÍ£¬ÀàËÆa.comºÍa.com,b.com»òa.com b.com,×Ô¶¯·Ö¸î×é½¨Êı×é
-#2.Èç¹ûÊÇÍøÂçµØÖ·ÀàĞÍ£¬ÇĞ»»³Éµ¥¸öipºó×é³ÉÊı×é£¬Èç192.168.0.0/24£¬·µ»ØµÄÊı×éÄÚÈİÎª192.168.0.1-192.168.0.255
+#è¿™ä¸ªæ‰æ˜¯çœŸæ­£çš„ç›®æ ‡å¤„ç†å‡½æ•°
+#è¿™ä¸ªå‡½æ•°ä»…ä»…æŠŠç›®æ ‡å¤„ç†æˆæ•°ç»„
+#0.å¦‚æœæ˜¯å•ä¸ªipæˆ–åŸŸåï¼Œç›´æ¥è¿”å›æˆæ•°ç»„
+#1.å¦‚æœæ˜¯åŸŸåç±»å‹ï¼Œç±»ä¼¼a.comå’Œa.com,b.comæˆ–a.com b.com,è‡ªåŠ¨åˆ†å‰²ç»„å»ºæ•°ç»„
+#2.å¦‚æœæ˜¯ç½‘ç»œåœ°å€ç±»å‹ï¼Œåˆ‡æ¢æˆå•ä¸ªipåç»„æˆæ•°ç»„ï¼Œå¦‚192.168.0.0/24ï¼Œè¿”å›çš„æ•°ç»„å†…å®¹ä¸º192.168.0.1-192.168.0.255
 def parse_target_( item )
 	reg_domain = /[\w\d\-_\.]+[a-z]{2,4}/n
 	reg_ipaddr = /[[0-9]{1,3}\.]{3}\.[0-9]{1,3}/n
@@ -27,50 +27,52 @@ def parse_target_( item )
 	return item
 end
 
-#´´½¨É¨ÃèÈÎÎñ
+#åˆ›å»ºæ‰«æä»»åŠ¡
 =begin
-¸Ãº¯Êı²ÎÊıÎª£º
-type:ÈÎÎñÀàĞÍ
-	0:Ä¬ÈÏÀàĞÍ
+è¯¥å‡½æ•°å‚æ•°ä¸ºï¼š
+type:ä»»åŠ¡ç±»å‹
+	0:é»˜è®¤ç±»å‹
 	1:single scripts
 	2:define rule
 	3:launch task
-item:²ÎÊı
+item:å‚æ•°
 	type	item		targets
 	0		0			targets
 	1		script_name	targets
 	2		rule_name	targets
 	3		task_path	null
-targets:Ä¿±ê£¬Êı×éÀàĞÍ
+targets:ç›®æ ‡ï¼Œæ•°ç»„ç±»å‹
 =end
 def create_task(type, item, targets)
 	case type
 		when 0
-			#Ä¬ÈÏÉ¨ÃèÀàĞÍ
-			#ÆôÓÃÈ«²¿É¨Ãè¹æÔò
-			puts "#{time} Default Task #{item} For #{targets}"
+			#é»˜è®¤æ‰«æç±»å‹
+			#å¯ç”¨å…¨éƒ¨æ‰«æè§„åˆ™
+			puts "#{time} ä½¿ç”¨é»˜è®¤è§„åˆ™#{item}æ‰«æ #{targets}"
 			create_task(2, 0, targets )
 		when 1
-			#µ¥½Å±¾Ä£Ê½
-			#ÕâÖÖÄ£Ê½ÏÂÍ¨¹ıÅĞ¶Ï¹æÔòÖĞ°üº¬µÄÄ¿±êÊıÁ¿À´´´½¨É¨ÃèÏß³Ì
-			puts "#{time} Use Script #{item} #{targets}"
+			#å•è„šæœ¬æ¨¡å¼
+			#è¿™ç§æ¨¡å¼ä¸‹é€šè¿‡åˆ¤æ–­è§„åˆ™ä¸­åŒ…å«çš„ç›®æ ‡æ•°é‡æ¥åˆ›å»ºæ‰«æçº¿ç¨‹
+			puts "#{time} ä½¿ç”¨è„šæœ¬#{item}æ‰«æ#{targets}"
 		when 2
-			#¹æÔòÄ£Ê½
-			#ÕâÖÖÄ£Ê½ÏÂÍ¨¹ıÅĞ¶Ï¹æÔòÖĞ°üº¬µÄ½Å±¾ÊıÁ¿À´´¦ÀíÉ¨ÃèÏß³Ì
-			puts "#{time} Use Rule #{item} For #{targets}"
+			#è§„åˆ™æ¨¡å¼
+			#è¿™ç§æ¨¡å¼ä¸‹é€šè¿‡åˆ¤æ–­è§„åˆ™ä¸­åŒ…å«çš„è„šæœ¬æ•°é‡æ¥å¤„ç†æ‰«æçº¿ç¨‹
+			puts "#{time} ä½¿ç”¨è§„åˆ™#{item}æ‰«æ#{targets}"
 			targets.each do | target |
 				rule = parse_rule( item.to_i )
-				puts "#{time} Rule Name #{rule['name']}"
-				puts "#{time} Rule File In #{rule['file']}"
+				puts "#{time} è§„åˆ™:#{rule['name']}"
+				puts "#{time} è·¯å¾„:#{rule['file']}"
 				rule['scripts'].each do |script|
+					#è¿™é‡Œç¨ååŠ ä¸Šå¤šçº¿ç¨‹ï¼Œæ¯ä¸€ä¸ªçº¿ç¨‹ä¸­å®ä¾‹åŒ–ä¸€ä¸ªå˜é‡
 					puts "#{time} #{script} -> #{target}"
 					require script
-					p = Poc.new
-					p.verify( target )
+					poc = Poc.new
+					#puts poc.name
+					poc.verify( target )
 				end
 			end
 		when 3
-			#ÈÎÎñÄ£Ê½(¿ÉÒÔ¹éÀàµ½ÉÏÃæµÄÄ£Ê½ÖĞ)
+			#ä»»åŠ¡æ¨¡å¼(å¯ä»¥å½’ç±»åˆ°ä¸Šé¢çš„æ¨¡å¼ä¸­)
 			puts "#{time} Launch Task #{item} #{targets}"
 		else
 			puts "#{time} Unknow Command #{item} #{targets}"
@@ -81,10 +83,10 @@ def parse_rule(rule_id)
 	rule = Hash.new
 	rule['id']	 = rule_id.to_i
 	rule['file'] = "#{$RULE_PATH}/#{rule['id']}"
-	rule['name'] = "RULE:#{rule_id}"
+	rule['name'] = "#{rule_id}"
 	scripts = Array.new
-	#¹æÔòÎª/rules/ÏÂµÄÃèÊöÎÄ¼ş£¬ÆäÖĞµÄÃ¿Ò»ĞĞ´æ´¢Ò»¸ö½Å±¾Ãû³Æ
-	#¹æÔòÎÄ¼şµÄÃüÃû·½Ê½Îª id-name.rule,Èç 0:default.rule
+	#è§„åˆ™ä¸º/rules/ä¸‹çš„æè¿°æ–‡ä»¶ï¼Œå…¶ä¸­çš„æ¯ä¸€è¡Œå­˜å‚¨ä¸€ä¸ªè„šæœ¬åç§°
+	#è§„åˆ™æ–‡ä»¶çš„å‘½åæ–¹å¼ä¸º id-name.rule,å¦‚ 0:default.rule
 	IO.foreach( rule['file'] ) do | s |
 		scripts.push( s.chomp )
 	end
@@ -95,6 +97,3 @@ end
 def getRuleNameById( id )
 
 end
-
-
-

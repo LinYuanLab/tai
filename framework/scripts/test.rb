@@ -1,11 +1,13 @@
 #-*- coding: utf-8 -*-
 
 class Poc
-	
-	id		= 0
-	name	= "test"
-	
+
+	def initialize
+		puts "initialize"
+		id		= 0
+		name	= "test poc"
+	end
 	def verify( target )
-		puts "You are in Poc, Now accack #{target}"
+		puts "verify  #{target}"
 	end
 end
