@@ -138,7 +138,7 @@ end #结束Model模块
 #puts domain.append(ARGV[0])
 #domain.append("www.sina.com")
 #domain.remove("id", 3)
-#domain.remove("domain","www.baidu.com")
+#domain.remove( "domain","www.baidu.com" )
 #domain.find("id",1)
 #domain.find( "domain", "www.baidu.com" )["id"]
-#domain.update("domain","www.sina.com","domain","www.weibo.com" )
+#domain.update( "domain","www.sina.com","domain","www.weibo.com" )
