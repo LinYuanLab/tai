@@ -1,4 +1,5 @@
 ﻿#test
+
 ###目录说明:
 framework			程序运行框架
 framework/logs		日志文件目录
@@ -6,6 +7,8 @@ framework/rules		扫描规则文件目录
 framework/modules	模块文件目录
 framework/scripts	扫描脚本目录
 framework/database	程序数据库目录
+
+###项目笔记
 ####2016-01-21:
 启动项目
 ####2016-01-22
@@ -78,7 +81,7 @@ wyportmap目标端口和指纹识别组件
 http://www.hx99.net/Article/Tools/201507/36861.html
 操作系统指纹识别概述
 http://www.freebuf.com/articles/system/30037.html
-###项目笔记
+
 模块
 1.界面
 2.扫描进程调度模块
