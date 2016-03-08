@@ -1,5 +1,7 @@
 ﻿$LOAD_PATH << File.dirname(__FILE__)
 
+require 'ip'
+
 def parse_target( item )
 	targets = Array.new
 	if item.include?','
