@@ -7,15 +7,16 @@ def parse_target( item )
 	if item.include?','
 	#a.com,b.com,x.x.x.x
 		item.split(",").each do |target|
-			
 			targets.push( target )
 		end
-	elsif item.include?'-' and item =~ /[[0-9]{1,3}\.]{3}\.[0-9]{1,3}\-[0-9]{1,3}/n
-	#x.x.x.x-x
-		( item.split("-")[0].split(".")[3].to_i..item.split("-")[1].to_i).each do |i|
-			targets.push( "#{item.split(".")[0]}.#{item.split(".")[1]}.#{item.split(".")[2]}.#{i}" )
+	elsif item.include?'-' #and item =~ /[[0-9]{1,3}\.]{3}\.[0-9]{1,3}\-[0-9]{1,3}/n
+	#x.x.x.x-x.x.x.x
+		start = item.split("-")[0]
+		stop = item.split("-")[1]
+		ips =  IP::Range[ start,stop ]
+		ips.each do |ip|
+			targets.push( ip.ip_address )
 		end
-		targets.push( item )
 	else
 		targets.push( item )
 	end
@@ -43,23 +44,28 @@ def create_task(type, item, targets)
 		when 0
 			#默认扫描类型
 			#启用全部扫描规则
-			puts "#{time} 使用默认规则#{item}扫描 #{targets}"
+			puts "#{time} 加载全部脚本#{item}扫描 #{targets.size} 个目标"
 			create_task(2, 0, targets )
 		when 1
 			#单脚本模式
 			#这种模式下通过判断规则中包含的目标数量来创建扫描线程
-			puts "#{time} 使用脚本#{item}扫描 #{targets}"
+			puts "#{time} 使用脚本 #{item} 扫描 #{targets.size} 个目标"
+			targets.each do |target|
+				require item
+				poc = Poc.new
+				poc.verify( target )
+			end
 		when 2
 			#规则模式
 			#这种模式下通过判断规则中包含的脚本数量来处理扫描线程
-			puts "#{time} 使用规则#{item}扫描 #{targets}"
+			puts "#{time} 加载规则#{item}扫描 #{targets.size} 个目标"
 			targets.each do | target |
 				rule = parse_rule( item.to_i )
 				puts "#{time} 当前规则:#{rule['name']}"
-				#puts "#{time} 路径:#{rule['file']}"
+				puts "#{time} 规则文件路径:#{rule['file']}"
 				rule['scripts'].each do |script|
 					#这里稍后加上多线程，每一个线程中实例化一个变量
-					puts "#{time} 加载#{script} 扫描 #{target}"
+					puts "#{time} 使用 #{script} 扫描 #{target}"
 					require script
 					poc = Poc.new
 					#puts Poc.info['id']
