@@ -1,8 +1,7 @@
 #-*- coding:utf-8 -*-
 
 
-require 'config'
-
+#require 'config'
 
 require 'webrick'
 
@@ -17,7 +16,7 @@ class RootServlet < WEBrick::HTTPServlet::AbstractServlet
     #status, content_type, body = do_stuff_with req
 	resp.status = 200
 	#resp["Content-Type"] = 'text/plain'
-	resp.body = "<h3>Hello WEBrick</h3>"
+	resp.body = File.new('index.html').sysread(100)
   end
 end
 

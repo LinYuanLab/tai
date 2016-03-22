@@ -4,17 +4,40 @@ require 'ip'
 
 def parse_target( item )
 	targets = Array.new
-	if item.include?','
-	#a.com,b.com,x.x.x.x
+	if File.exist?( item )
+		IO.foreach( item ) do |line|
+			if line.split().size >= 2
+				start = line.split()[0]
+				stop = line.split()[1]
+				ips =  IP::Range[ start,stop ]
+				ips.each do |ip|
+					targets.push( ip.ip_address )
+				end
+			else
+				if line.include?'/'
+					ips = IP::CIDR.new( line.chomp )
+					ips.range.each do |ip|
+						targets.push( ip.ip_address )
+					end
+				else
+					targets.push( line.chomp )
+				end
+			end
+		end
+	elsif item.include?','
 		item.split(",").each do |target|
 			targets.push( target )
 		end
-	elsif item.include?'-' #and item =~ /[[0-9]{1,3}\.]{3}\.[0-9]{1,3}\-[0-9]{1,3}/n
-	#x.x.x.x-x.x.x.x
+	elsif item.include?'-'
 		start = item.split("-")[0]
 		stop = item.split("-")[1]
 		ips =  IP::Range[ start,stop ]
 		ips.each do |ip|
+			targets.push( ip.ip_address )
+		end
+	elsif item.include?'/'
+		ips = IP::CIDR.new( item )
+		ips.range.each do |ip|
 			targets.push( ip.ip_address )
 		end
 	else
@@ -80,7 +103,7 @@ def create_task(type, item, targets)
 		end
 end
 
-def parse_rule(rule_id)
+def parse_rule( rule_id )
 	rule = Hash.new
 	rule['id']	 = rule_id.to_i
 	rule['file'] = "#{$RULE_PATH}/#{rule['id']}"
@@ -93,8 +116,4 @@ def parse_rule(rule_id)
 	end
 	rule['scripts'] = scripts
 	return rule
-end
-
-def getRuleNameById( id )
-
 end

@@ -2,7 +2,6 @@
 
 require 'net/http'
 
-
 class Poc
 	def initialize
 		puts "#{time} 规则初始化"

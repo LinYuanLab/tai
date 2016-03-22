@@ -17,7 +17,7 @@ OptionParser.new do |parser|
           options[:rule] = rule
      end
           
-     parser.on( "-t", "--target HOSTS", "指定目标") do |target|
+     parser.on( "-t", "--target TARGET", "指定目标") do |target|
           options[:target] = target
      end
 
