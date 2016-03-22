@@ -67,12 +67,12 @@ def create_task(type, item, targets)
 		when 0
 			#默认扫描类型
 			#启用全部扫描规则
-			puts "#{time} 加载全部脚本#{item}扫描 #{targets.size} 个目标"
-			create_task(2, 0, targets )
+			#puts "#{time} 加载全部脚本#{item}扫描 #{targets.size} 个目标"
+			create_task( 2, 0, targets )
 		when 1
 			#单脚本模式
 			#这种模式下通过判断规则中包含的目标数量来创建扫描线程
-			puts "#{time} 使用脚本 #{item} 扫描 #{targets.size} 个目标"
+			#puts "#{time} 使用脚本 #{item} 扫描 #{targets.size} 个目标"
 			targets.each do |target|
 				require item
 				poc = Poc.new
@@ -81,14 +81,14 @@ def create_task(type, item, targets)
 		when 2
 			#规则模式
 			#这种模式下通过判断规则中包含的脚本数量来处理扫描线程
-			puts "#{time} 加载规则#{item}扫描 #{targets.size} 个目标"
+			#puts "#{time} 加载规则#{item}扫描 #{targets.size} 个目标"
 			targets.each do | target |
 				rule = parse_rule( item.to_i )
-				puts "#{time} 当前规则:#{rule['name']}"
-				puts "#{time} 规则文件路径:#{rule['file']}"
+				#puts "#{time} 当前规则:#{rule['name']}"
+				#puts "#{time} 规则文件路径:#{rule['file']}"
 				rule['scripts'].each do |script|
 					#这里稍后加上多线程，每一个线程中实例化一个变量
-					puts "#{time} 使用 #{script} 扫描 #{target}"
+					#puts "#{time} 使用 #{script} 扫描 #{target}"
 					require script
 					poc = Poc.new
 					#puts Poc.info['id']
@@ -107,12 +107,13 @@ def parse_rule( rule_id )
 	rule = Hash.new
 	rule['id']	 = rule_id.to_i
 	rule['file'] = "#{$RULE_PATH}/#{rule['id']}"
-	rule['name'] = "#{rule_id}"
+	rule['name'] = IO.readlines( rule['file'] )[0].delete("#")
 	scripts = Array.new
 	#规则为/rules/下的描述文件，其中的每一行存储一个脚本名称
-	#规则文件的命名方式为 id-name.rule,如 0:default.rule
 	IO.foreach( rule['file'] ) do | s |
-		scripts.push( s.chomp )
+		unless s.match(/^#/)
+			scripts.push( s.chomp )
+		end
 	end
 	rule['scripts'] = scripts
 	return rule

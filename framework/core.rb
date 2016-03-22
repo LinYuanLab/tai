@@ -2,6 +2,7 @@
 $LOAD_PATH << File.dirname(__FILE__)
 
 require 'tasks'
+require 'scans'
 require 'config'
 
 #扫描系统初始化
@@ -47,17 +48,17 @@ def args_parse(options)
 			targets = parse_target( target )
 			if rule = options[:rule]
 				#如果指定了特定的规则，这里将使用特定的脚本进行扫描
-				puts "加载规则: #{rule}"
+				#puts "#{time} 加载规则: #{rule}"
 				#创建特定规则任务
-				create_task( 2, "rule_name", targets )
+				create_task( 2, rule, targets )
 			else
 				if script = options[:script]
 					#如果指定了单个脚本进行批量扫描，那么就从这里启动扫描
-					puts "Use Script: #{script}"
+					#puts "Use Script: #{script}"
 					create_task( 1, script, targets )
 				else
 					#不然的话就启动默认规则，从这里进行扫描
-					puts "#{time} 加载默认规则"
+					#puts "#{time} 加载默认规则"
 					#puts Iconv.new('gbk', 'utf-8').iconv("加载" )
 					#默认的规则是启用全部的脚本
 					create_task( 0, 0, targets )
