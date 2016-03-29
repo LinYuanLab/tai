@@ -73,6 +73,9 @@ creds数据库中的列
 	cred_taskid
 	cred_target
 	cred_services
+####2016-03-29
+今天完成了多线程和任务、扫描之间的连带关系
+得抓紧时间写了，时间不多啦
 
 ##一些参考
 nmap源码分析-服务与版本扫描

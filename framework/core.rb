@@ -5,6 +5,8 @@ require 'tasks'
 require 'scans'
 require 'config'
 
+require 'thread'
+
 #扫描系统初始化
 def init()
 	puts "Init"
@@ -32,9 +34,9 @@ def args_parse(options)
 				end
 			end
 		when 'rules'
-			puts "#{time} 当前共#{(Dir.entries $RULE_PATH).size-2}条扫描规则"		
+			puts "#{time} 当前共#{(Dir.entries $RULE_PATH).size-2}条扫描规则"
 		when 'tasks'
-			puts "#{time} 当前共#{(Dir.entries $PROC_PATH).size-2}个扫描进程"		
+			puts "#{time} 当前共#{(Dir.entries $PROC_PATH).size-2}个扫描进程"
 		end
 	elsif options[:update]
 		#更新规则库
@@ -50,6 +52,7 @@ def args_parse(options)
 				#如果指定了特定的规则，这里将使用特定的脚本进行扫描
 				#puts "#{time} 加载规则: #{rule}"
 				#创建特定规则任务
+				#create_task( 2, rule, targets )
 				create_task( 2, rule, targets )
 			else
 				if script = options[:script]
@@ -95,32 +98,28 @@ end
 
 
 =begin
-puts "\033[1mFront\033[0m\n"  
-puts "   \033[30mBlack (30)\033[0m\n"  
-puts "   \033[31mRed (31)\033[0m\n"  
-puts "   \033[32mGreen (32)\033[0m\n"  
-puts "   \033[33mYellow (33)\033[0m\n"  
-puts "   \033[34mBlue (34)\033[0m\n"  
-puts "   \033[35mMagenta (35)\033[0m\n"  
-puts "   \033[36mCyan (36)\033[0m\n"  
-puts "   \033[37mWhite (37)\033[0m\n"  
-puts ''   
-puts "\033[1mBackend\033[0m\n"  
-puts "   \033[40m\033[37mBlack (40), White Text\033[0m\n"  
-puts "   \033[41mRed (41)\033[0m\n"  
-puts "   \033[42mGreen (42)\033[0m\n"  
-puts "   \033[43mYellow (43)\033[0m\n"  
-puts "   \033[44mBlue (44)\033[0m\n"  
-puts "   \033[45mMagenta (45)\033[0m\n"  
-puts "   \033[46mCyan (46)\033[0m\n"  
-puts "   \033[47mWhite (47)\033[0m\n"  
-puts ''  
+puts "\033[1mFront\033[0m\n"
+puts "   \033[30mBlack (30)\033[0m\n"
+puts "   \033[31mRed (31)\033[0m\n"
+puts "   \033[32mGreen (32)\033[0m\n"
+puts "   \033[33mYellow (33)\033[0m\n"
+puts "   \033[34mBlue (34)\033[0m\n"
+puts "   \033[35mMagenta (35)\033[0m\n"
+puts "   \033[36mCyan (36)\033[0m\n"
+puts "   \033[37mWhite (37)\033[0m\n"
+puts ''
+puts "\033[1mBackend\033[0m\n"
+puts "   \033[40m\033[37mBlack (40), White Text\033[0m\n"
+puts "   \033[41mRed (41)\033[0m\n"
+puts "   \033[42mGreen (42)\033[0m\n"
+puts "   \033[43mYellow (43)\033[0m\n"
+puts "   \033[44mBlue (44)\033[0m\n"
+puts "   \033[45mMagenta (45)\033[0m\n"
+puts "   \033[46mCyan (46)\033[0m\n"
+puts "   \033[47mWhite (47)\033[0m\n"
+puts ''
 puts "\033[1mOther\033[0m\n"
-puts "   Reset (0)"  
+puts "   Reset (0)"
 puts "   \033[1mBold (1)\033[0m\n"
 puts "   \033[4mUnderlined (4)\033[0m\n"
 =end
-
-
-
-

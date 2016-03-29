@@ -10,6 +10,9 @@ $MODULE_PATH	= "#{File.dirname(__FILE__)}/modules"	#模块文件目录
 $SCRIPT_PATH	= "#{File.dirname(__FILE__)}/scripts"	#脚本文件目录
 $DATABASE_PATH	= "#{File.dirname(__FILE__)}/database"	#数据库文件目录
 
+$TASK_THREAD    = 15    #同时扫描的目标线程数
+$SCAN_THREAD    = 10    #单个目标同时开启的线程数
+
 =begin
 puts "*"*32
 puts "[   配置   ]"
