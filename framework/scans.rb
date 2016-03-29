@@ -19,7 +19,9 @@ class Scan
 	end
 
 	def scan( target, script )
-
+		require script
+		poc = Poc.new
+		poc.verify( target )
 	end
 
 	def save()
