@@ -1,7 +1,3 @@
 #default rule
 #第一行默认为规则的名称，留空则没有名称，默认留空
-http_title.rb
-#测试注释
-live_check.rb
-port_scan.rb
 test.rb

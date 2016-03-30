@@ -5,16 +5,16 @@
 
 require 'icmp4em'
 
-class Poc
+class Vuln
 	def initialize
-		#puts "#{time} 规则初始化"
+		puts "#{time('%H:%M:%S')} live_check.rb"
 	end
 
 	def is_alive(host)
 		EM.run do
 			manager = ICMP4EM::Manager.new
 			request = manager.ping host
-			request.callback do 
+			request.callback do
 				puts "#{host}\tonline"
 				return true
 			end
@@ -23,13 +23,13 @@ class Poc
 				return false
 			end
 		end
-	end	
-	
+	end
+
 	def verify( target )
 		begin
 			is_alive( target )
 		rescue Exception => e
-			puts "#{time} #{e}"
+			puts "#{time('%H:%M:%S')} #{e}"
 		end
 	end
 end
