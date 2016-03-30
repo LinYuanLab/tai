@@ -63,6 +63,11 @@ OptionParser.new do |parser|
 		exit
 	end
 
+	parser.on("-d", "--debug", "显示调试信息") do
+		debug()
+		exit
+	end
+
 	parser.on("-v", "--version", "显示版本信息") do
 		puts "主程序版本: #{version("framework")}"
 		puts "规则库版本: #{version("rules")}"

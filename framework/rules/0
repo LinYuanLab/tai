@@ -1,3 +1,3 @@
 #default rule
 #第一行默认为规则的名称，留空则没有名称，默认留空
-test.rb
+tamplate.rb

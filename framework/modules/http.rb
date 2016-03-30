@@ -1,12 +1,23 @@
-﻿# -*- coding: utf-8 -*-
-
-$LOAD_PATH << File.dirname(__FILE__)
+﻿#-*- coding: utf-8 -*-
 
 require 'net/http'
 
-module Spider
+module Http
+	def Http.getTitle( target )
+		begin
+			resp = Net::HTTP.get_response( formatUri(target) )
+			reg_title = /<title>(.+?)<\/title>/n
+			if resp
+				puts resp.body.scan( reg_title )[0]
+				puts 'http_title'
+			end
+		rescue Exception => e
+			puts "#{time('%H:%M:%S')} #{e}"
+		end
+	end
 
-	def Spider.getPage(uri,item)
+
+	def Http.getPage(uri,item)
 		begin
 			resp = Net::HTTP.get_response(formatUri(uri))
 			reg_title = /<title>(.*?)<\/title>/n
@@ -19,18 +30,13 @@ module Spider
 			return nil
 		end
 	end
-	
-	def Spider.formatUri(url)
+
+	def Http.formatUri(url)
 		if url.include?"http://" or url.include?"https:?/"
 			return URI(url)
 		else
 			return URI("http://#{url}")
 		end
 	end
-	
-	
-	
-	
-	
-end
 
+end

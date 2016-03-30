@@ -71,7 +71,7 @@ def parse_args(options)
 			end
 		else
 			#没有指定扫描目标，程序退出
-			puts "#{time} 使用 -h 或 --help 查看帮助"
+			puts "#{time('%H:%M:%S')} 使用 -h 或 --help 查看帮助"
 		end
 	end
 end
@@ -79,11 +79,11 @@ end
 #解析扫描规则
 def parse_rule( rule_id )
 	begin
-		rule = Hash.new
-		rule['id']	 = rule_id.to_i
-		rule['file'] = "#{$RULE_PATH}/#{rule['id']}"
-		rule['name'] = IO.readlines( rule['file'] )[0].delete("#") #规则文件的第一行为脚本的名称
-		scripts = Array.new
+		rule			= Hash.new
+		rule['id']		= rule_id.to_i
+		rule['file']	= "#{$RULE_PATH}/#{rule['id']}"
+		rule['name']	= IO.readlines( rule['file'] )[0].delete("#") #规则文件的第一行为脚本的名称
+		scripts			= Array.new
 		#规则为/rules/下的描述文件，其中的每一行存储一个脚本名称
 		IO.foreach( rule['file'] ) do | s |
 			unless s.match(/^#/)
@@ -94,7 +94,7 @@ def parse_rule( rule_id )
 		rule['scripts'] = scripts
 		return rule
 	rescue
-		puts "#{time} 规则有误"
+		puts "#{time('%H:%M:%S')} 规则有误"
 		exit
 	end
 end
@@ -143,6 +143,8 @@ def parse_ipaddr( item )
 		ips.range.each do |ip|
 			targets.push( ip.ip_address )
 		end
+	elsif item.include?':'
+		#x.x.x.x:xx
 	else
 		targets.push( item )
 	end
@@ -181,6 +183,20 @@ def version(obj)
 	return version[obj]
 end
 
+def debug()
+	puts "*"*64
+	puts "[   配置   ]"
+	puts "$WORK_PATH\t#{$WORK_PATH}"
+	puts "$LOGS_PATH\t#{$LOGS_PATH}"
+	puts "$PROC_PATH\t#{$PROC_PATH}"
+	puts "$RULE_PATH\t#{$RULE_PATH}"
+	puts "$MODULE_PATH\t#{$MODULE_PATH}"
+	puts "$SCRIPT_PATH\t#{$SCRIPT_PATH}"
+	puts "$DATABASE_PATH\t#{$DATABASE_PATH}"
+	puts "$LOAD_PATH:"
+	puts $LOAD_PATH
+	puts "*"*64
+end
 
 =begin
 puts "\033[1mFront\033[0m\n"

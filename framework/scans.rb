@@ -11,6 +11,8 @@ class Scan
 		@info['task']	= $CONFIG['task_id']
 		@info['vulns']	= Array.new
 		@info['target']	= target
+		#@info['alive']	= is_alive( @info[:target] )
+		#@info['ports']	= open_ports
 		while scripts.size > 0
 			$CONFIG['thread'].times do |i|
 				threads << Thread.new do
@@ -33,7 +35,6 @@ class Scan
 	end
 
 	def save( )
-		puts @info.to_json
 		f = File::new( @scan_file, 'a+' )
 		f.syswrite( @info.to_json )
 		f.close

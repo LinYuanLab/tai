@@ -28,10 +28,10 @@ class Task
 				create_scan( targets, rule['scripts'] )
 			when 1
 				scripts = []
-				scripts.push(item)
+				scripts.push( item.to_i )
 				create_scan( targets, scripts )
 			when 2
-				rule = parse_rule( item.to_i )
+				rule = parse_rule( item )
 				create_scan( targets, rule['scripts'] )
 			when 3
 				puts "#{time} Launch Task #{item} #{targets}"
