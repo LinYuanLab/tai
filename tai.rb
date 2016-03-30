@@ -16,7 +16,7 @@ OptionParser.new do |parser|
 	end
 
 	parser.separator("\n[ 扫描目标选项 ]")
-	parser.on( "-t", "--target TARGET", "设置目标(x.x.x.x/24)" ) do |target|
+	parser.on( "-t", "--target TARGET", "设置目标" ) do |target|
 		options[:target] = target
 	end
 
@@ -42,7 +42,7 @@ OptionParser.new do |parser|
 	end
 
 	parser.separator("\n[ 扫描器选项 ]")
-	parser.on( "-w", "--web", "启动web界面") do |output|
+	parser.on( "-w", "--web", "启动web服务") do |output|
 		 options[:output] = output
 	end
 
@@ -72,6 +72,11 @@ OptionParser.new do |parser|
 		puts "主程序版本: #{version("framework")}"
 		puts "规则库版本: #{version("rules")}"
 		exit
+	end
+
+	parser.separator("\n[ 上帝模式 ]")
+	parser.on( "-W", "--wooyun", "乌云厂商一键检测") do |output|
+		 options[:output] = output
 	end
 end.parse!
 
