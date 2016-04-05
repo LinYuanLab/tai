@@ -59,6 +59,14 @@ class ScriptServlet < WEBrick::HTTPServlet::AbstractServlet
   end
 end
 
+class Server < WEBrick::HTTPServer
+    def initialize( id, host, port )
+        :BindAddress    => host,
+        :Port           => port,
+        :DocumentRoot   => $HTTP_ROOT
+    e
+end
+
 #core
 server = WEBrick::HTTPServer.new(
   :BindAddress => listen,
@@ -69,6 +77,7 @@ server = WEBrick::HTTPServer.new(
 trap 'INT' do
     server.shutdown
 end
+
 server.mount '/', RootServlet
 server.mount '/api', ApiServlet
 server.mount '/style.css', ResServlet
