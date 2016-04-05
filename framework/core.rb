@@ -26,6 +26,11 @@ def parse_args(options)
 		puts "Output To File: #{output}"
 	end
 
+	if options[:web]
+		puts "#{$HTTP_ROOT}"
+		require 'web/server'
+	end
+
 	if import = options[:import]
 		puts "Launch Task:#{import}"
 		#执行导入的扫描任务

@@ -42,8 +42,8 @@ OptionParser.new do |parser|
 	end
 
 	parser.separator("\n[ 扫描器选项 ]")
-	parser.on( "-w", "--web", "启动web服务") do |output|
-		 options[:output] = output
+	parser.on( "-w", "--web", "启动web服务") do |web|
+		 options[:web] = web
 	end
 
 	parser.on( "-l", "--list [scripts|rules|tasks]", "显示脚本/规则/任务") do |list|
