@@ -188,6 +188,10 @@ def version(obj)
 	return version[obj]
 end
 
+def update()
+	puts "run git pull"
+end
+
 def debug()
 	puts "*"*64
 	puts "[   配置   ]"
