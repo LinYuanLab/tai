@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html;charset=utf-8"/>
+<meta http-equiv="Cache-Control" content="max-age=0" forua="true"/>
+<meta http-equiv="Cache-Control" content="no-cache"/>
+<meta http-equiv="Expires" content="0"/>
+<title>太乙漏洞扫描系统</title>
+<link href="style.css" rel="stylesheet" type="text/css" />
+<script type="text/javascript" src="/script.js"></script>
+</head>
+<body>
+<div class="wrap">
+<div id="menu" >
+<ul>
+	<li class="act" onclick="_active(this)">扫描</li>
+	<li onclick="_active(this)">规则</li>
+	<li onclick="_active(this)">报表</li>
+	<li onclick="_active(this)">设置</li>
+	<li onclick="_active(this)">关于</li>
+</ul>
+</div>
+<div id="item">
+	<div id="scans">
+		<!--h3>扫描</h3-->
+		<button onclick="edit_scan('add')">添加</button>
+		<button>刷新</button>
+		<hr/>
+		<table>
+			<tr>
+				<td><a href="">乌云厂商测试</a></td>
+				<td><button>删除</button></td>
+				<td><button>修改</button></td>
+				<td><button>启动</button></td>
+				<td><button>停止</button></td>
+			</tr>
+			<tr>
+				<td><a href="">XX城域网扫描</a></td>
+				<td><button>删除</button></td>
+				<td><button>修改</button></td>
+				<td><button>启动</button></td>
+				<td><button>停止</button></td>
+			</tr>
+			<tr>
+				<td><a href="">XX系统主机漏洞全部扫描</a></td>
+				<td><button>删除</button></td>
+				<td><button>修改</button></td>
+				<td><button>启动</button></td>
+				<td><button>停止</button></td>
+			</tr>
+			<tr>
+				<td><a href="">XX网站漏洞扫描</a></td>
+				<td><button>删除</button></td>
+				<td><button>修改</button></td>
+				<td><button>启动</button></td>
+				<td><button>停止</button></td>
+			</tr>
+		</table>
+	</div>
+	<div class="hide">
+		<button onclick="edit_rule('add')">添加</button>
+		<br/>
+	</div>
+	<div class="hide">
+		<span>报表</span>
+	</div>
+	<div class="hide">
+		<span>设置</span>
+	</div>
+	<div class="hide">
+		<b>太乙漏洞扫描系统 v1.0</b><br/>
+		<span>Tai Vuln Scanner v1.0</span><br/>
+		<span>Powerd By Chorder</span>
+	</div>
+</div>
+<div id="edit_scan_div" class="edit_div"><!--start add_scan_div-->
+	<span id="edit_scan_div_title">添加扫描任务</span>
+	<button onclick="edit_scan('launch')" style="float: right;"/>启动</button>
+	<button onclick="edit_scan('save')" style="float: right;"/>保存</button>
+	<button onclick="edit_scan('cancle')" style="float: right;"/>取消</button>
+	<form id="edit_scan_form">
+		<label for="scan_title">标题：</label>
+		<input name="scan_title" type="text" /><br/>
+		<label for="scan_title">线程：</label>
+		<input name="scan_thread" type="text" /><br/>
+		<label for="scan_title">规则：</label>
+		<select name='scan_rule' style='width:100px' onchange=''>
+			<option value='0' selected>默认规则</option>
+			<option value='1'>规则1</option>
+			<option value='2'>规则2</option>
+		</select><br/>
+		<label for="scan_title">脚本：</label>
+		<select name='scan_script' style='width:200px' onchange=''>
+			<option value='ruvar_hrm_sql_injection.rb' selected>ruvar_hrm_sql_injection.rb</rb></option>
+			<option value='ruvar_hrm_sql_injection_1.rb'>ruvar_hrm_sql_injection_1.rb</option>
+			<option value='ruvar_hrm_sql_injection_2.rb'>ruvar_hrm_sql_injection.rb</option>
+		</select><br/>
+		<label for="scan_title">目标：</label>
+		<textarea name="scan_targets">这里输入扫描目标，每行一个</textarea>
+	</from>
+</div><!--end add_scan_div-->
+
+<div id="edit_rule_div" class="edit_div"><!--start add_rule_div-->
+	<span id="title">添加扫描规则</span>
+	<button onclick="edit_rule('save')" style="float: right;"/>保存</button>
+	<button onclick="edit_rule('cancle')" style="float: right;"/>取消</button>
+	<form id="add_rule">
+		<label for="rule_title">标题：</label>
+		<input name="rule_title" type="text" /><br/>
+		<label for="rule_title">包含脚本：</label><br/>
+		<input name="ruvar_hrm_sql_injection_1.rb" type="checkbox" value="ruvar_hrm_sql_injection_1.rb" />ruvar_hrm_sql_injection_2.rb<br/>
+	    <input name="ruvar_hrm_sql_injection_2.rb" type="checkbox" value="ruvar_hrm_sql_injection_2.rb" />ruvar_hrm_sql_injection_2.rb<br/>
+	</from>
+</div><!--end add_rule_div-->
+
+
+
+
+<div id="fade" class="black_overlay" onclick="add_scan()">
+</div>
+
+
+<div id="footer">
+&copy;2016&nbsp;<b>太乙漏洞扫描系统</b><br/><a href="">https://chorder.net</a>
+</div>
+</div>
+</body>
+</html>
