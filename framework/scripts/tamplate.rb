@@ -18,7 +18,7 @@ class Vuln
 	end
 
 	def verify( target )
-		puts target
+		puts "[目标] #{target} 扫描已启动，进程ID 1"
 	end
 
 	def ret()

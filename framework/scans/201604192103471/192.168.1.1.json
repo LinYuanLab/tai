@@ -1,0 +1,12 @@
+{
+"id":1,
+"task":"201604192103471",
+"vulns":[
+	"SSH Weak Password",
+	"File Download",
+],
+"data":[
+	"null"
+],
+"target":"192.168.1.1"
+}
